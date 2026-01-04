@@ -1,0 +1,1399 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lazy Traveller | Educational Tours</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Modern Mobile-First Design */
+        :root {
+            --primary: #FF6B6B;
+            --primary-dark: #FF5252;
+            --secondary: #4ECDC4;
+            --accent: #FFD166;
+            --light: #F7F9FC;
+            --dark: #292F36;
+            --gray: #6C757D;
+            --success: #06D6A0;
+            --gradient: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+            --gradient-dark: linear-gradient(135deg, #FF5252 0%, #36B9A8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Modern Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            height: 70px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Animated Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .panda-face {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            position: relative;
+            animation: wobble 2s ease-in-out infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+
+        .panda-eye {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--dark);
+            border-radius: 50%;
+            top: 8px;
+            animation: blink 3s infinite;
+        }
+
+        @keyframes blink {
+            0%, 45%, 55%, 100% { height: 8px; top: 8px; }
+            50% { height: 2px; top: 12px; }
+        }
+
+        .panda-eye.left { left: 6px; }
+        .panda-eye.right { right: 6px; }
+
+        .kid-bag {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 0.8rem;
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            color: var(--gray);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            background: var(--gradient);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 1001;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            transform: rotate(90deg);
+        }
+
+        .menu-bar {
+            width: 24px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active .menu-bar:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active .menu-bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active .menu-bar:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Modern Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 100px 30px 50px;
+            transition: right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+            box-shadow: -10px 0 50px rgba(0,0,0,0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateX(20px);
+            opacity: 0;
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .menu-link:nth-child(1) { animation-delay: 0.1s; }
+        .menu-link:nth-child(2) { animation-delay: 0.2s; }
+        .menu-link:nth-child(3) { animation-delay: 0.3s; }
+        .menu-link:nth-child(4) { animation-delay: 0.4s; }
+        .menu-link:nth-child(5) { animation-delay: 0.5s; }
+        .menu-link:nth-child(6) { animation-delay: 0.6s; }
+
+        .menu-link i {
+            width: 24px;
+            text-align: center;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .menu-link:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(10px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
+        }
+
+        .menu-link:hover i {
+            color: white;
+        }
+
+        /* Hero Section - Modern */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient-dark);
+            color: white;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.1;
+            animation: zoomInOut 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Modern Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: var(--primary);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover:before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) rotate(2deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 20px;
+            background: white;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Grade Cards - Modern */
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 25px auto 0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Modern Grade Cards */
+        .grade-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .grade-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .grade-card.animate {
+            animation: cardAppear 0.6s ease forwards;
+        }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .grade-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .grade-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .grade-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .grade-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .grade-card:hover .grade-image img {
+            transform: scale(1.1);
+        }
+
+        .grade-content {
+            padding: 30px;
+        }
+
+        .grade-content h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grade-content h3 i {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .features li:hover {
+            padding-left: 10px;
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .features li i {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .features li:hover i {
+            background: var(--gradient);
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        .card-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-button:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .card-button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(40, 40);
+                opacity: 0;
+            }
+        }
+
+        .card-button:hover {
+            background: var(--gradient-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .card-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .card-button:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Modern Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 20px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+
+        .footer-logo .logo-icon {
+            width: 60px;
+            height: 60px;
+            animation: none;
+        }
+
+        .footer-logo-text .logo-main {
+            font-size: 1.8rem;
+        }
+
+        .footer-logo-text .logo-sub {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover:before {
+            transform: scale(1);
+        }
+
+        .social-link i {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover i {
+            transform: scale(1.2);
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-column a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .grade-cards {
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .footer-brand {
+                text-align: left;
+                flex: 1;
+            }
+            
+            .footer-links {
+                flex: 2;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 40px;
+            }
+            
+            .hero {
+                padding: 150px 40px 100px;
+            }
+            
+            .section {
+                padding: 100px 40px;
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-icon {
+            width: 80px;
+            height: 80px;
+            border: 5px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Parallax Scrolling Effect */
+        .parallax {
+            transform: translateY(0);
+            transition: transform 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-icon"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="parallax">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <div class="panda-face">
+                        <div class="panda-eye left"></div>
+                        <div class="panda-eye right"></div>
+                    </div>
+                    <div class="kid-bag">
+                        <i class="fas fa-child"></i>
+                    </div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-main">Lazy Traveller</div>
+                    <div class="logo-sub">EDUCATIONAL TOURS</div>
+                </div>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="menu-links">
+            <a href="#home" class="menu-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#grades" class="menu-link">
+                <i class="fas fa-graduation-cap"></i> Grades
+            </a>
+            <a href="#stats" class="menu-link">
+                <i class="fas fa-chart-line"></i> Statistics
+            </a>
+            <a href="#why" class="menu-link">
+                <i class="fas fa-star"></i> Why Us
+            </a>
+            <a href="#contact" class="menu-link">
+                <i class="fas fa-phone"></i> Contact
+            </a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Learning Journeys<br>Made Magical</h1>
+            <p>We transform educational tours into unforgettable adventures. Experience curriculum-aligned programs with the perfect blend of learning, fun, and discovery.</p>
+            <a href="#grades" class="cta-button">
+                <i class="fas fa-compass"></i>
+                Start Exploring
+            </a>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats" id="stats">
+        <div class="section-title">
+            <h2>Our Impact in Numbers</h2>
+            <p>Trusted by schools across the nation for transforming educational experiences</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card animate__animated">
+                <div class="stat-number" id="stat1">0</div>
+                <div class="stat-text">Partner Schools</div>
+            </div>
+            
+            <div class="stat-card animate__animated">
+                <div class="stat-number" id="stat2">0</div>
+                <div class="stat-text">Happy Students</div>
+            </div>
+            
+            <div class="stat-card animate__animated">
+                <div class="stat-number" id="stat3">0</div>
+                <div class="stat-text">Successful Tours</div>
+            </div>
+            
+            <div class="stat-card animate__animated">
+                <div class="stat-number" id="stat4">0%</div>
+                <div class="stat-text">Satisfaction Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grade Programs -->
+    <section class="section" id="grades">
+        <div class="section-title">
+            <h2>Tailored Learning Experiences</h2>
+            <p>Age-appropriate programs designed to inspire curiosity and foster growth at every educational level</p>
+        </div>
+        
+        <div class="grade-cards">
+            <!-- Elementary -->
+            <div class="grade-card">
+                <div class="grade-badge">Grades 1-5</div>
+                <div class="grade-image">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Elementary">
+                </div>
+                <div class="grade-content">
+                    <h3><i class="fas fa-seedling"></i> Elementary Explorers</h3>
+                    <ul class="features">
+                        <li><i class="fas fa-leaf"></i> Nature Discovery Walks</li>
+                        <li><i class="fas fa-palette"></i> Interactive Museum Tours</li>
+                        <li><i class="fas fa-seedling"></i> Farm Life Experiences</li>
+                        <li><i class="fas fa-flask"></i> Fun Science Experiments</li>
+                    </ul>
+                    <button class="card-button">
+                        Explore Program
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Middle School -->
+            <div class="grade-card">
+                <div class="grade-badge">Grades 6-8</div>
+                <div class="grade-image">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Middle School">
+                </div>
+                <div class="grade-content">
+                    <h3><i class="fas fa-microscope"></i> Middle School Innovators</h3>
+                    <ul class="features">
+                        <li><i class="fas fa-flask"></i> Advanced Lab Workshops</li>
+                        <li><i class="fas fa-landmark"></i> Historical Site Exploration</li>
+                        <li><i class="fas fa-recycle"></i> Eco Conservation Projects</li>
+                        <li><i class="fas fa-robot"></i> Tech & Coding Camps</li>
+                    </ul>
+                    <button class="card-button">
+                        Explore Program
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- High School -->
+            <div class="grade-card">
+                <div class="grade-badge">Grades 9-12</div>
+                <div class="grade-image">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="High School">
+                </div>
+                <div class="grade-content">
+                    <h3><i class="fas fa-rocket"></i> High School Achievers</h3>
+                    <ul class="features">
+                        <li><i class="fas fa-atom"></i> Advanced Research Projects</li>
+                        <li><i class="fas fa-briefcase"></i> Industry Immersion</li>
+                        <li><i class="fas fa-globe-americas"></i> Global Exchange Programs</li>
+                        <li><i class="fas fa-university"></i> University Preparation</li>
+                    </ul>
+                    <button class="card-button">
+                        Explore Program
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section" style="background: var(--light);" id="why">
+        <div class="section-title">
+            <h2>Why Schools Love Us</h2>
+            <p>Discover what makes Lazy Traveller the preferred choice for educational institutions</p>
+        </div>
+        
+        <div class="grade-cards">
+            <div class="grade-card">
+                <div class="grade-content">
+                    <h3><i class="fas fa-shield-alt"></i> Safety First</h3>
+                    <p>24/7 supervision, certified guides, medical support, and comprehensive insurance for complete peace of mind.</p>
+                    <div style="margin-top: 20px;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 10px;"></i>
+                        <span style="color: var(--gray);">100% Safety Record</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grade-card">
+                <div class="grade-content">
+                    <h3><i class="fas fa-book"></i> Curriculum Integrated</h3>
+                    <p>Every tour is meticulously designed to align with CBSE, ICSE, IB, and state board curriculum requirements.</p>
+                    <div style="margin-top: 20px;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 10px;"></i>
+                        <span style="color: var(--gray);">Board-Specific Programs</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grade-card">
+                <div class="grade-content">
+                    <h3><i class="fas fa-gem"></i> Premium Experience</h3>
+                    <p>From transportation to accommodation, we ensure comfortable and memorable experiences for all students.</p>
+                    <div style="margin-top: 20px;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 10px;"></i>
+                        <span style="color: var(--gray);">5-Star Rated Services</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="footer-logo">
+                    <div class="logo-icon">
+                        <div class="panda-face">
+                            <div class="panda-eye left"></div>
+                            <div class="panda-eye right"></div>
+                        </div>
+                        <div class="kid-bag">
+                            <i class="fas fa-child"></i>
+                        </div>
+                    </div>
+                    <div class="footer-logo-text">
+                        <div class="logo-main">Lazy Traveller</div>
+                        <div class="logo-sub">EDUCATIONAL TOURS</div>
+                    </div>
+                </a>
+                <p style="color: rgba(255,255,255,0.7); margin: 20px 0; line-height: 1.8;">
+                    Transforming educational journeys into magical learning adventures since 2010. We make learning fun, safe, and memorable.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#grades"><i class="fas fa-graduation-cap"></i> Grade Programs</a></li>
+                        <li><a href="#why"><i class="fas fa-star"></i> Why Choose Us</a></li>
+                        <li><a href="#contact"><i class="fas fa-phone"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Our Programs</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-school"></i> Elementary School</a></li>
+                        <li><a href="#"><i class="fas fa-university"></i> Middle School</a></li>
+                        <li><a href="#"><i class="fas fa-graduation-cap"></i> High School</a></li>
+                        <li><a href="#"><i class="fas fa-globe"></i> Board Programs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                        <li><a href="mailto:hello@lazytraveller.com"><i class="fas fa-envelope"></i> hello@lazytraveller.com</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Delhi, India</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sat: 9AM-6PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Lazy Traveller Educational Tours. All rights reserved.</p>
+            <p style="margin-top: 10px;">Designed with ❤️ for amazing learning journeys</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="fab">
+        <i class="fas fa-comment"></i>
+    </div>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking links
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Animated Counter for Stats
+        function animateCounter(id, start, end, duration, suffix = '') {
+            let current = start;
+            const increment = end > start ? 1 : -1;
+            const stepTime = Math.abs(Math.floor(duration / (end - start)));
+            const element = document.getElementById(id);
+            
+            const timer = setInterval(() => {
+                current += increment;
+                element.textContent = current + suffix;
+                
+                if (current === end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        // Animate stats when scrolled into view
+        const statsSection = document.querySelector('.stats');
+        let animated = false;
+
+        function checkScroll() {
+            const sectionTop = statsSection.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (sectionTop < windowHeight - 100 && !animated) {
+                animated = true;
+                animateCounter('stat1', 0, 500, 2000, '+');
+                animateCounter('stat2', 0, 75000, 2000, '+');
+                animateCounter('stat3', 0, 1200, 2000, '+');
+                animateCounter('stat4', 0, 98, 2000, '%');
+            }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll(); // Check on load
+
+        // Animate grade cards on scroll
+        const gradeCards = document.querySelectorAll('.grade-card');
+        
+        function animateCards() {
+            gradeCards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight - 100) {
+                    card.classList.add('animate');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateCards);
+        animateCards(); // Check on load
+
+        // Parallax effect for header
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            document.querySelector('.parallax').style.transform = `translateY(${rate}px)`;
+        });
+
+        // Ripple effect for buttons
+        document.querySelectorAll('.card-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.5);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    top: ${y}px;
+                    left: ${x}px;
+                `;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // FAB click handler
+        document.getElementById('fab').addEventListener('click', () => {
+            alert('Hello! How can we help you plan your educational tour?');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add hover effect to social links
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.style.transform = 'translateY(-5px)';
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
